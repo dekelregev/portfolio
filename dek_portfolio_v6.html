@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dek — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #0f0f0e; --ink-muted: #6b6a64; --ink-faint: #a8a7a0;
+    --surface: #f7f5f0; --card: #ffffff;
+    --border: rgba(15,15,14,0.10); --border-hover: rgba(15,15,14,0.22);
+    --accent: #1a3a5c; --tag-bg: #f0ede6; --tag-text: #3d3b34;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--surface); color: var(--ink); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(247,245,240,0.90); backdrop-filter: blur(10px); border-bottom: 0.5px solid var(--border); padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--ink); text-decoration: none; letter-spacing: -0.3px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.18s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  .hero { max-width: 760px; margin: 0 auto; padding: 6rem 2.5rem 4rem; }
+  .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1.25rem; }
+  .hero-bio { font-size: 16px; line-height: 1.72; color: var(--ink-muted); max-width: 520px; }
+
+  .section-divider { max-width: 760px; margin: 0 auto; padding: 0 2.5rem 2.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-divider span { font-size: 11px; font-weight: 500; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink-faint); white-space: nowrap; }
+  .section-divider hr { flex: 1; border: none; border-top: 0.5px solid var(--border); }
+
+  .projects { max-width: 760px; margin: 0 auto; padding: 0 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .card-featured { background: var(--card); border: 0.5px solid var(--border); border-top: 3px solid #1a6647; border-radius: 14px; padding: 2.25rem; display: grid; grid-template-columns: 1fr auto; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; }
+  .card-featured:hover { border-color: var(--border-hover); border-top-color: #1a6647; box-shadow: 0 6px 32px rgba(15,15,14,0.09); transform: translateY(-2px); }
+  .card-featured-body { display: flex; flex-direction: column; }
+  .card-featured-badge { align-self: flex-start; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: #e6f4ee; color: #1a6647; border-radius: 5px; padding: 4px 10px; margin-bottom: 1.25rem; }
+  .featured-meta { margin-bottom: 0.6rem; }
+  .card-featured-title { font-family: 'DM Serif Display', serif; font-size: 26px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.1; }
+  .card-featured-subtitle { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+  .card-featured-desc { font-size: 15px; line-height: 1.72; color: var(--ink-muted); margin: 1rem 0 1.5rem; max-width: 540px; }
+  .card-featured-icon { width: 56px; height: 56px; border-radius: 14px; background: #e6f4ee; display: flex; align-items: center; justify-content: center; margin-left: 2rem; align-self: flex-start; flex-shrink: 0; }
+  .card-tags-featured { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
+  .card-link-featured { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #1a6647; text-decoration: none; transition: gap 0.15s; }
+  .card-link-featured:hover { gap: 9px; }
+  .card-link-featured svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+  .card { background: var(--card); border: 0.5px solid var(--border); border-radius: 14px; padding: 1.6rem; display: flex; flex-direction: column; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2.5px; background: var(--card-accent, var(--accent)); opacity: 0; transition: opacity 0.2s; }
+  .card:hover { border-color: var(--border-hover); box-shadow: 0 4px 24px rgba(15,15,14,0.07); transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.1rem; }
+  .card-subtitle { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.45rem; }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 17px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.2; }
+  .card-desc { font-size: 13px; line-height: 1.65; color: var(--ink-muted); flex: 1; margin-bottom: 1.25rem; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.1rem; }
+  .tag { font-size: 10px; font-weight: 500; letter-spacing: 0.03em; background: var(--tag-bg); color: var(--tag-text); border-radius: 4px; padding: 3px 7px; }
+  .card-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; transition: gap 0.15s; }
+  .card-link:hover { gap: 8px; }
+  .card-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  .about-section { max-width: 760px; margin: 0 auto; padding: 0 2.5rem; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+  .about-left p { font-size: 15px; line-height: 1.78; color: var(--ink-muted); }
+  .about-left p + p { margin-top: 1.1rem; }
+  .about-right { display: flex; flex-direction: column; gap: 1rem; }
+  .about-stat { background: var(--card); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; }
+  .about-stat-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.35rem; }
+  .about-stat-value { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--ink); line-height: 1.25; }
+  .about-linkedin { display: inline-flex; align-items: center; gap: 6px; margin-top: 1.5rem; font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; transition: gap 0.15s; }
+  .about-linkedin:hover { gap: 9px; }
+
+  footer { max-width: 760px; margin: 4rem auto 0; padding: 2.5rem 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; border-top: 0.5px solid var(--border); }
+  .footer-name { font-family: 'DM Serif Display', serif; font-size: 15px; color: var(--ink); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--ink); }
+
+  @media (max-width: 620px) {
+    nav { padding: 0 1.25rem; } .nav-links { display: none; }
+    .hero, .section-divider, .projects, .about-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .card-featured { grid-template-columns: 1fr; }
+    .card-featured-icon { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Dek</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="https://www.linkedin.com/in/dekelregev/" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <p class="hero-eyebrow">Portfolio</p>
+  <p class="hero-bio">Finance student at Tulane University with a focus on entrepreneurial product development, from real estate investment platforms to operational software for small businesses.</p>
+</header>
+
+<div class="section-divider">
+  <span>Projects</span>
+  <hr />
+</div>
+
+<main class="projects" id="projects">
+  <article class="card-featured">
+    <div class="card-featured-body">
+      <span class="card-featured-badge">Featured project</span>
+      <div class="featured-meta"><p class="card-featured-subtitle">Operations · SaaS</p></div>
+      <h2 class="card-featured-title">Detail Dashboard</h2>
+      <p class="card-featured-desc">An internal operations platform for car detailers. Software offers scheduling, CRM, marketing, invoicing, and employee management. Everything a detail shop needs to run without spreadsheets.</p>
+      <div class="card-tags-featured">
+        <span class="tag">Scheduling</span><span class="tag">CRM</span><span class="tag">Invoicing</span><span class="tag">React</span><span class="tag">Supabase</span><span class="tag">Vercel</span>
+      </div>
+      <a class="card-link-featured" href="https://detaildashboard.com" target="_blank">
+        Visit detaildashboard.com
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="card-featured-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1a6647" stroke-width="1.8" style="width:26px;height:26px;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+  </article>
+
+  <div class="cards-grid">
+    <article class="card" style="--card-accent: #1a3a5c;">
+      <div class="card-icon" style="background: #e8eef5;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a3a5c" stroke-width="1.8" style="width:18px;height:18px;"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      </div>
+      <p class="card-subtitle">Real Estate · Finance</p>
+      <h3 class="card-title">Section 8 Calc</h3>
+      <p class="card-desc">A real estate investment platform focused on Section 8 housing, integrating HUD fair market rent data to surface yield projections, AI-powered neighborhood summaries, and a property manager marketplace.</p>
+      <div class="card-tags"><span class="tag">HUD Data</span><span class="tag">AI</span><span class="tag">React</span><span class="tag">Supabase</span></div>
+      <a class="card-link" href="https://section8calc.com" target="_blank">Visit site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </article>
+
+    <article class="card" style="--card-accent: #7c3aaa;">
+      <div class="card-icon" style="background: #f3ecfa;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aaa" stroke-width="1.8" style="width:18px;height:18px;"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18"/><path d="M3 12h18"/></svg>
+      </div>
+      <p class="card-subtitle">Web App · Game</p>
+      <h3 class="card-title">Gradient</h3>
+      <p class="card-desc">A color matching memory game where players identify colored gradients. Built and deployed within 24 hours of the dialed.gg color game going viral.</p>
+      <div class="card-tags"><span class="tag">Vanilla JS</span><span class="tag">Cloudflare Pages</span><span class="tag">CSS</span></div>
+      <a class="card-link" href="https://playgradient.com" target="_blank">Play live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </article>
+
+    <article class="card" style="--card-accent: #9a3520;">
+      <div class="card-icon" style="background: #faede9;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#9a3520" stroke-width="1.8" style="width:18px;height:18px;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      </div>
+      <p class="card-subtitle">Procurement · Finance</p>
+      <h3 class="card-title">Receipt Tracker</h3>
+      <p class="card-desc">A supplier price tracking app with Claude-powered OCR receipt scanning. Monitors cost trends across vendors for different supplies. Built as a custom solution for The Spray Gun autobody shop.</p>
+      <div class="card-tags"><span class="tag">Claude API</span><span class="tag">OCR</span><span class="tag">Supabase</span><span class="tag">React</span></div>
+      <a class="card-link" href="#" style="color: var(--ink-faint); pointer-events: none; cursor: default;">Private product</a>
+    </article>
+  </div>
+</main>
+
+<div style="height: 4rem;"></div>
+<div class="section-divider">
+  <span>About</span>
+  <hr />
+</div>
+
+<section class="about-section" id="about">
+  <div class="about-grid">
+    <div class="about-left">
+      <p>I'm Dek, a Finance student at Tulane University with a habit of building things on the side. I grew up in Las Vegas and came up as a decathlete, picking up the event freshman year of high school and committing fully to it from day one. The decathlon demanded something different from every practice: sprinting, jumping, and throwing. That combination of disciplines became the lens through which I approach most things.</p>
+      <p>After high school I spent a post-grad year training at IMG Academy, where I developed both as an athlete and as someone who understood what serious, structured preparation looks like. That work earned a Division I scholarship to compete at Tulane.</p>
+      <p>A back injury eventually took me off the track, but the competitive drive didn't go anywhere. I've shifted my focus to golf and triathlons, which I have to say are much more enjoyable.</p>
+      <p>On the academic and professional side, I concentrate in Finance and Entrepreneurship with an interest in real estate.</p>
+      <a class="about-linkedin" href="https://www.linkedin.com/in/dekelregev/" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        Connect on LinkedIn
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="about-right">
+      <div class="about-stat">
+        <p class="about-stat-label">Education</p>
+        <p class="about-stat-value">Tulane University, Finance and Entrepreneurship</p>
+      </div>
+      <div class="about-stat">
+        <p class="about-stat-label">Athletics</p>
+        <p class="about-stat-value">Division I Decathlete, IMG Academy to Tulane</p>
+      </div>
+      <div class="about-stat">
+        <p class="about-stat-label">Currently pursuing</p>
+        <p class="about-stat-value">Golf and Triathlons</p>
+      </div>
+      <div class="about-stat">
+        <p class="about-stat-label">Based in</p>
+        <p class="about-stat-value">New Orleans, LA</p>
+      </div>
+      <div class="about-stat">
+        <p class="about-stat-label">Interests</p>
+        <p class="about-stat-value">Real estate, entrepreneurship, product development</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Dek Regev</span>
+  <div class="footer-links">
+    <a href="#projects">Projects</a>
+    <a href="https://www.linkedin.com/in/dekelregev/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
