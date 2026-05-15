@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Dek — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -31,6 +31,7 @@
 
   .projects { max-width: 760px; margin: 0 auto; padding: 0 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
 
+  /* Featured card */
   .card-featured { background: var(--card); border: 0.5px solid var(--border); border-top: 3px solid #1a6647; border-radius: 14px; padding: 2.25rem; display: grid; grid-template-columns: 1fr auto; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; }
   .card-featured:hover { border-color: var(--border-hover); border-top-color: #1a6647; box-shadow: 0 6px 32px rgba(15,15,14,0.09); transform: translateY(-2px); }
   .card-featured-body { display: flex; flex-direction: column; }
@@ -39,12 +40,13 @@
   .card-featured-title { font-family: 'DM Serif Display', serif; font-size: 26px; letter-spacing: -0.025em; color: var(--ink); line-height: 1.1; }
   .card-featured-subtitle { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
   .card-featured-desc { font-size: 15px; line-height: 1.72; color: var(--ink-muted); margin: 1rem 0 1.5rem; max-width: 540px; }
-  .card-featured-icon { width: 56px; height: 56px; border-radius: 14px; background: #e6f4ee; display: flex; align-items: center; justify-content: center; margin-left: 2rem; align-self: flex-start; flex-shrink: 0; }
+  .card-featured-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-left: 2rem; align-self: flex-start; flex-shrink: 0; }
   .card-tags-featured { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.5rem; }
-  .card-link-featured { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: #1a6647; text-decoration: none; transition: gap 0.15s; }
+  .card-link-featured { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; text-decoration: none; transition: gap 0.15s; }
   .card-link-featured:hover { gap: 9px; }
   .card-link-featured svg { width: 13px; height: 13px; flex-shrink: 0; }
 
+  /* Grid cards */
   .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   .card { background: var(--card); border: 0.5px solid var(--border); border-radius: 14px; padding: 1.6rem; display: flex; flex-direction: column; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
   .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2.5px; background: var(--card-accent, var(--accent)); opacity: 0; transition: opacity 0.2s; }
@@ -60,6 +62,47 @@
   .card-link:hover { gap: 8px; }
   .card-link svg { width: 12px; height: 12px; flex-shrink: 0; }
 
+  /* DekSites mockup inside card */
+  .deksites-preview {
+    background: #F4F2EC;
+    border-radius: 10px;
+    border: 1px solid #D9D5C8;
+    overflow: hidden;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .ds-bar {
+    background: #ECEAE2;
+    padding: 8px 12px;
+    border-bottom: 1px solid #D9D5C8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ds-dots { display: flex; gap: 4px; }
+  .ds-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .ds-url { font-family: 'Geist Mono', monospace; font-size: 9px; color: #7A766B; }
+  .ds-body { padding: 14px 16px; }
+  .ds-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 8px;
+    border: 1px solid #D9D5C8;
+    border-radius: 999px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    color: #2A2823;
+    margin-bottom: 10px;
+  }
+  .ds-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: #C2533A; }
+  .ds-headline { font-size: 13px; font-weight: 600; color: #14130F; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .ds-headline em { font-style: normal; color: #C2533A; }
+  .ds-sub { font-size: 10px; color: #7A766B; line-height: 1.5; margin-bottom: 10px; }
+  .ds-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: #D9D5C8; border: 1px solid #D9D5C8; border-radius: 6px; overflow: hidden; }
+  .ds-stat { background: #F4F2EC; padding: 8px 6px; }
+  .ds-stat-k { font-family: 'Geist Mono', monospace; font-size: 8px; color: #7A766B; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .ds-stat-v { font-size: 15px; font-weight: 600; color: #14130F; letter-spacing: -0.02em; }
+
+  /* About */
   .about-section { max-width: 760px; margin: 0 auto; padding: 0 2.5rem; }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
   .about-left p { font-size: 15px; line-height: 1.78; color: var(--ink-muted); }
@@ -109,6 +152,8 @@
 </div>
 
 <main class="projects" id="projects">
+
+  <!-- DETAIL DASHBOARD — featured -->
   <article class="card-featured">
     <div class="card-featured-body">
       <span class="card-featured-badge">Featured project</span>
@@ -118,20 +163,35 @@
       <div class="card-tags-featured">
         <span class="tag">Scheduling</span><span class="tag">CRM</span><span class="tag">Invoicing</span><span class="tag">React</span><span class="tag">Supabase</span><span class="tag">Vercel</span>
       </div>
-      <a class="card-link-featured" href="https://detaildashboard.com" target="_blank">
+      <a class="card-link-featured" href="https://detaildashboard.com" target="_blank" style="color:#1a6647;">
         Visit detaildashboard.com
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-    <div class="card-featured-icon">
+    <div class="card-featured-icon" style="background:#e6f4ee;">
       <svg viewBox="0 0 24 24" fill="none" stroke="#1a6647" stroke-width="1.8" style="width:26px;height:26px;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
     </div>
   </article>
 
   <div class="cards-grid">
 
-    <article class="card" style="--card-accent: #1a3a5c;">
-      <div class="card-icon" style="background: #e8eef5;">
+    <!-- DEKSITES -->
+    <article class="card" style="--card-accent:#C2533A;">
+      <div class="card-icon" style="background:#f9ede9;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C2533A" stroke-width="1.8" style="width:18px;height:18px;"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <p class="card-subtitle">Web Design · Agency</p>
+      <h3 class="card-title">DekSites</h3>
+      <p class="card-desc">A web design venture building fast, hand-coded sites for local businesses — plumbers, restaurants, law firms — with SEO and AI search optimization baked in from day one. Currently acquiring clients.</p>
+      <div class="card-tags"><span class="tag">Web Design</span><span class="tag">SEO</span><span class="tag">AI Search</span><span class="tag">Local Business</span></div>
+      <a class="card-link" href="https://deksites.com" target="_blank" style="color:#C2533A;">
+        Visit deksites.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <!-- EDGE -->
+    <article class="card" style="--card-accent:#1a3a5c;">
+      <div class="card-icon" style="background:#e8eef5;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#1a3a5c" stroke-width="1.8" style="width:18px;height:18px;"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
       </div>
       <p class="card-subtitle">Finance · Prediction Markets</p>
@@ -141,8 +201,9 @@
       <a class="card-link" href="https://predictor-umber.vercel.app/" target="_blank">Visit site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </article>
 
-    <article class="card" style="--card-accent: #6b3fa0;">
-      <div class="card-icon" style="background: #f0eaf8;">
+    <!-- SECTION 8 CALC -->
+    <article class="card" style="--card-accent:#6b3fa0;">
+      <div class="card-icon" style="background:#f0eaf8;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#6b3fa0" stroke-width="1.8" style="width:18px;height:18px;"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
       </div>
       <p class="card-subtitle">Real Estate · Finance</p>
@@ -152,32 +213,22 @@
       <a class="card-link" href="https://section8calc.com" target="_blank">Visit site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </article>
 
-    <article class="card" style="--card-accent: #7c3aaa;">
-      <div class="card-icon" style="background: #f3ecfa;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aaa" stroke-width="1.8" style="width:18px;height:18px;"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 010 18"/><path d="M3 12h18"/></svg>
-      </div>
-      <p class="card-subtitle">Web App · Game</p>
-      <h3 class="card-title">Gradient</h3>
-      <p class="card-desc">A color matching memory game where players identify colored gradients. Built and deployed within 24 hours of the dialed.gg color game going viral.</p>
-      <div class="card-tags"><span class="tag">Vanilla JS</span><span class="tag">Cloudflare Pages</span><span class="tag">CSS</span></div>
-      <a class="card-link" href="https://playgradient.com" target="_blank">Play live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-    </article>
-
-    <article class="card" style="--card-accent: #9a3520;">
-      <div class="card-icon" style="background: #faede9;">
+    <!-- RECEIPT TRACKER -->
+    <article class="card" style="--card-accent:#9a3520;">
+      <div class="card-icon" style="background:#faede9;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#9a3520" stroke-width="1.8" style="width:18px;height:18px;"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
       </div>
       <p class="card-subtitle">Procurement · Finance</p>
       <h3 class="card-title">Receipt Tracker</h3>
       <p class="card-desc">A supplier price tracking app with Claude-powered OCR receipt scanning. Monitors cost trends across vendors for different supplies. Built as a custom solution for The Spray Gun autobody shop.</p>
       <div class="card-tags"><span class="tag">Claude API</span><span class="tag">OCR</span><span class="tag">Supabase</span><span class="tag">React</span></div>
-      <a class="card-link" href="#" style="color: var(--ink-faint); pointer-events: none; cursor: default;">Private product</a>
+      <a class="card-link" href="#" style="color:var(--ink-faint);pointer-events:none;cursor:default;">Private product</a>
     </article>
 
   </div>
 </main>
 
-<div style="height: 4rem;"></div>
+<div style="height:4rem;"></div>
 <div class="section-divider">
   <span>About</span>
   <hr />
